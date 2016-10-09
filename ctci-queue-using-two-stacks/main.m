@@ -49,27 +49,29 @@
     printf("%ld\n", (long)number.integerValue);
 }
 @end
+    
+Queue *loadCommands(int count) {
+    Queue *commands = [[Queue alloc] init];
+    for (int i = 0; i < count; i++) {
+        int cmd;
+        scanf("%i", &cmd);
+        [commands enqueue:cmd];
+        if (cmd == 1) {
+            scanf("%i", &cmd);
+            [commands enqueue:cmd];
+        }
+    }
+    
+    return commands;
+}
 
-int main(int argc, const char * argv[]){
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int n;
-    scanf("%i", &n);
-    // ideally we should load commands from the console and create a
-    // queue with all commands but running from this site the last 
-    // input is loaded repeatly
-    /*Queue *commands = [[Queue alloc] init];
-    while (n != EOF) {
-        scanf("%i", &n);
-        [commands enqueue:n];
-    }*/
+void runCommands(Queue *commands) {
     Queue *queue = [[Queue alloc] init];
-    for (int i = 0; i < n; i++) {
-        int command;
-        scanf("%i", &command);
+    while (commands.queue.count > 0) {
+        NSInteger command = [commands dequeue];
         switch(command) {
             case 1: {
-                int value;
-                scanf("%i", &value);
+                NSInteger value = [commands dequeue];
                 [queue enqueue:value];
             }
                 break;
@@ -81,6 +83,15 @@ int main(int argc, const char * argv[]){
                 break;
         }
     }
+}
+
+int main(int argc, const char * argv[]){
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int n;
+    scanf("%i", &n);
+    
+    Queue *commands = loadCommands(n);
+    runCommands(commands);
 
     [pool drain];
     return 0;
