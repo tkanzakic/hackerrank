@@ -1,4 +1,5 @@
-// Solution to problem https://www.hackerrank.com/challenges/ctci-is-binary-search-tree
+// Solution to problem Trees: Is This a Binary Search Tree?
+// https://www.hackerrank.com/challenges/ctci-is-binary-search-tree
 
 /* The Node class is defined as follows:
     class Node {
